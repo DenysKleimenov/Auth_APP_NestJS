@@ -29,11 +29,11 @@ export class PostsService {
     return this.postModel.findAll();
   }
 
-  getPost(id: string) {
+  getPost(id: number) {
     return this.postModel.findByPk(id);
   }
 
-  updatePost(id: string, title: string, description: string) {
+  updatePost(id: number, title: string, description: string) {
     return this.postModel.update(
       { title, description },
       {
@@ -44,7 +44,7 @@ export class PostsService {
     );
   }
 
-  deletePost(id: string) {
+  deletePost(id: number) {
     return this.postModel.destroy({
       where: {
         id,

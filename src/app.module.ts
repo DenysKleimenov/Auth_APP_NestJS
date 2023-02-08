@@ -5,6 +5,8 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { Post } from './posts/post.model';
 import { PostsModule } from './posts/posts.module';
 import { ConfigModule } from '@nestjs/config';
+import { CommentsModule } from './comments/comments.module';
+import { Comment } from './comments/comments.model';
 ConfigModule.forRoot();
 
 @Module({
@@ -16,13 +18,14 @@ ConfigModule.forRoot();
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [Post],
+      models: [Post, Comment],
       dialectOptions: {
         ssl: true,
         native: true,
       },
     }),
     PostsModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

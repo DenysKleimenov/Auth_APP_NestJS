@@ -17,12 +17,18 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @Post()
-  createPost(
+  async createPost(
     @Body('title') title: string,
     @Body('author_id') author_id: number,
     @Body('description') description: string,
   ) {
-    return this.postsService.createPost(title, author_id, description);
+    const createdPost = await this.postsService.createPost(
+      title,
+      author_id,
+      description,
+    );
+
+    return normalize(createdPost);
   }
 
   @Get()
@@ -33,7 +39,7 @@ export class PostsController {
   }
 
   @Get(':id')
-  async getOnePost(@Param('id') id: string) {
+  async getOnePost(@Param('id') id: number) {
     const foundPost = await this.postsService.getPost(id);
 
     if (!foundPost) {
@@ -45,7 +51,7 @@ export class PostsController {
 
   @Patch(':id')
   async updatePost(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body('title') title: string,
     @Body('description') description: string,
   ) {
@@ -72,7 +78,7 @@ export class PostsController {
   }
 
   @Delete(':id')
-  async deletePost(@Param('id') id: string) {
+  async deletePost(@Param('id') id: number) {
     const deleted = await this.postsService.deletePost(id);
 
     if (deleted === 0) {
