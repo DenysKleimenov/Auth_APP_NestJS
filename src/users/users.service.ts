@@ -14,6 +14,10 @@ export class UsersService {
     return this.userModel.create({ ...user });
   }
 
+  findAll() {
+    return this.userModel.findAll();
+  }
+
   findOne(username: string) {
     return this.userModel.findOne({ where: { username } });
   }

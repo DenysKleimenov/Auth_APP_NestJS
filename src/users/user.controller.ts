@@ -17,6 +17,13 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Roles(Role.ADMIN)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
+  @Get()
+  async getAll() {
+    return this.usersService.findAll();
+  }
+
   @Get()
   async getUserByName(@Body('username') username: string) {
     const foundUser = await this.usersService.findOne(username);
