@@ -16,7 +16,7 @@ export class User extends Model {
   id: number;
 
   @Column
-  name: string;
+  username: string;
 
   @Column
   email: string;

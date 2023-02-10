@@ -39,12 +39,10 @@ export class AuthService {
   public async create(user: UserDto) {
     const hashedPass = await this.hashPassword(user.password);
 
-    const newUser = await this.usersService.createUser(
-      user.username,
-      user.email,
-      hashedPass,
-      user.role_id,
-    );
+    const newUser = await this.usersService.createUser({
+      ...user,
+      password: hashedPass,
+    });
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...result } = newUser['dataValues'];
