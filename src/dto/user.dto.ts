@@ -1,6 +1,6 @@
 import { IsNotEmpty, MinLength, IsEmail, IsEnum } from 'class-validator';
 
-enum roleId {
+enum role {
   DEFAULT = 1,
   MANAGER = 2,
 }
@@ -18,7 +18,7 @@ export class UserDto {
   readonly password: string;
 
   @IsNotEmpty()
-  @IsEnum(roleId, {
+  @IsEnum(role, {
     message: 'role id must be either 1(Default) or 2(Manager)',
   })
   readonly role_id: number;
