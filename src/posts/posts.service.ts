@@ -2,12 +2,18 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Post } from './post.model';
 
-export const normalize = ({ id, author_id, title, description, pending }) => ({
+export const normalize = ({
   id,
   author_id,
   title,
   description,
-  pending,
+  published,
+}) => ({
+  id,
+  author_id,
+  title,
+  description,
+  published,
 });
 
 @Injectable()
@@ -17,12 +23,8 @@ export class PostsService {
     private postModel: typeof Post,
   ) {}
 
-  createPost(title: string, author_id: number, description: string) {
-    return this.postModel.create({
-      title,
-      author_id,
-      description,
-    });
+  createPost(post) {
+    return this.postModel.create({ ...post });
   }
 
   getPosts() {
@@ -33,9 +35,9 @@ export class PostsService {
     return this.postModel.findByPk(id);
   }
 
-  updatePost(id: number, title: string, description: string) {
+  updatePost(id: number, published: string) {
     return this.postModel.update(
-      { title, description },
+      { published },
       {
         where: {
           id,

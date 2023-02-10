@@ -26,5 +26,5 @@ export class Post extends Model {
   description: string;
 
   @Column
-  pending: boolean;
+  published: boolean;
 }
