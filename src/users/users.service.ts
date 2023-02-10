@@ -18,6 +18,10 @@ export class UsersService {
     return this.userModel.findOne({ where: { username } });
   }
 
+  findOneByEmail(email: string) {
+    return this.userModel.findOne({ where: { email } });
+  }
+
   findOneById(id: number) {
     return this.userModel.findByPk(id);
   }
