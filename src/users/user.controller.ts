@@ -1,27 +1,25 @@
 import {
   Controller,
-  Post,
   Body,
   Get,
   Param,
   NotFoundException,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
-import { UserDto } from 'src/dto/user.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { RolesGuard } from 'src/guards/roles.guard';
+import { Role } from 'src/roles/role.enum';
+import { Roles } from 'src/roles/roles.decorator';
 import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  createUser(@Body() user: UserDto) {
-    return this.usersService.createUser(user);
-  }
-
   @Get()
-  async getUserByName(@Body('name') name: string) {
-    const foundUser = await this.usersService.findOne(name);
+  async getUserByName(@Body('username') username: string) {
+    const foundUser = await this.usersService.findOne(username);
 
     if (!foundUser) {
       throw new NotFoundException('Could not find user');
@@ -41,6 +39,8 @@ export class UsersController {
     return foundUser;
   }
 
+  @Roles(Role.ADMIN)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Delete(':id')
   deleteUser(@Param('id') id: number) {
     return this.usersService.deleteUser(id);

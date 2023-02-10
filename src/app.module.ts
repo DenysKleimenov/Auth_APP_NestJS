@@ -7,6 +7,9 @@ import { PostsModule } from './posts/posts.module';
 import { ConfigModule } from '@nestjs/config';
 import { CommentsModule } from './comments/comments.module';
 import { Comment } from './comments/comments.model';
+import { User } from './users/user.model';
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 ConfigModule.forRoot();
 
 @Module({
@@ -18,7 +21,7 @@ ConfigModule.forRoot();
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [Post, Comment],
+      models: [Post, Comment, User],
       dialectOptions: {
         ssl: true,
         native: true,
@@ -26,6 +29,8 @@ ConfigModule.forRoot();
     }),
     PostsModule,
     CommentsModule,
+    UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
