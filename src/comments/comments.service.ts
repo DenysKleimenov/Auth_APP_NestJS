@@ -16,11 +16,9 @@ export class CommentsService {
     private commentModel: typeof Comment,
   ) {}
 
-  createComment(author_id: number, post_id: number, text: string) {
+  createComment(comment) {
     return this.commentModel.create({
-      author_id,
-      post_id,
-      text,
+      ...comment,
     });
   }
 
