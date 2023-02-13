@@ -18,6 +18,9 @@ Base URL = https://authapp-gt7u.onrender.com/
 **username**: denyskleimenov <br>
 **password**: test1234nest
 
+To log in, enter username and password, copy the received token, and paste it in Authorization as Bearer token in Postman or any other API testing tool.
+![image](https://user-images.githubusercontent.com/110383794/218401974-c05d400d-44a0-455a-8b72-d3dc5de9e9fb.png)
+
 ### /auth
 Method | URL | Description | Request Body | Required Role
 --- | --- | --- | --- | ---
